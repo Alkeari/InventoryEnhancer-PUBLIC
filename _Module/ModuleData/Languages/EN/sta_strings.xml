@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/BUTR/Bannerlord.XmlSchemas/master/ModuleLanguage.xsd">
+  <tags>
+    <tag language="English" />
+  </tags>
+  <strings>
+
+    <!-- Inventory Enhancer Localization Strings -->
+
+    <!-- General Settings Group -->
+    <string id="InvEnh_Sett_General" text="General" />
+    <string id="InvEnh_Sett_Enabled" text="Mod Enabled" />
+    <string id="InvEnh_Sett_Enabled_Hint" text="Master toggle for the entire mod. If disabled, all enhancements are turned off." />
+    <string id="InvEnh_Sett_Debug" text="Enable Logging" />
+    <string id="InvEnh_Sett_Debug_Hint" text="Enables debug logging to Documents/Mount and Blade II Bannerlord/Configs/ModLogs/Inventory Enhancer.log." />
+
+    <!-- Search Settings Group -->
+    <string id="InvEnh_Sett_Search" text="Search" />
+    <string id="InvEnh_Sett_SearchEnabler" text="Enable Search in All Inventories" />
+    <string id="InvEnh_Sett_SearchEnabler_Hint" text="Enables the search bar in inventories where it's usually disabled (like loot screens)." />
+    <string id="InvEnh_Sett_CaseInsensitive" text="Case-Insensitive Search" />
+    <string id="InvEnh_Sett_CaseInsensitive_Hint" text="Makes the inventory search bar ignore case (e.g., 'sword' matches 'Sword')." />
+
+    <!-- Sorting Settings Group -->
+    <string id="InvEnh_Sett_Sorting" text="Sorting" />
+    <string id="InvEnh_Sett_EnableSorting" text="Enable Custom Sorting" />
+    <string id="InvEnh_Sett_EnableSorting_Hint" text="Enables the custom sorting menu for advanced sort options like Armor, Damage, Speed, etc." />
+    <string id="InvEnh_Sett_PersistSelections" text="Remember Selections" />
+    <string id="InvEnh_Sett_PersistSelections_Hint" text="When enabled, your sort and filter selections will persist between inventory opens." />
+
+    <!-- Filtering Settings Group -->
+    <string id="InvEnh_Sett_Filtering" text="Filtering" />
+    <string id="InvEnh_Sett_EnableFiltering" text="Enable Custom Filtering" />
+    <string id="InvEnh_Sett_EnableFiltering_Hint" text="Enables the custom filtering menu (the Filter button)." />
+
+
+    <!-- Sort Categories -->
+    <string id="InvEnh_Sort_Name" text="Name" />
+    <string id="InvEnh_Sort_Tier" text="Tier" />
+    <string id="InvEnh_Sort_Damage" text="Damage" />
+    <string id="InvEnh_Sort_Accuracy" text="Accuracy" />
+    <string id="InvEnh_Sort_Reach" text="Reach" />
+    <string id="InvEnh_Sort_MissileSpeed" text="Missile Speed" />
+    <string id="InvEnh_Sort_HitPoints" text="Hit Points" />
+    <string id="InvEnh_Sort_ArmorCombined" text="Armor (Total)" />
+    <string id="InvEnh_Sort_ArmorHighest" text="Armor (Highest)" />
+    <string id="InvEnh_Sort_Speed" text="Speed" />
+    <string id="InvEnh_Sort_Handling" text="Handling" />
+    <string id="InvEnh_Sort_Weight" text="Weight" />
+    <string id="InvEnh_Sort_VPW" text="Value / Weight" />
+
+    <!-- Sort Direction -->
+    <string id="InvEnh_Sort_Ascending" text="Ascending" />
+    <string id="InvEnh_Sort_Descending" text="Descending" />
+    <string id="InvEnh_Sort_ChooseOneHeader" text="Choose One" />
+    <string id="InvEnh_Sort_GeneralHeader" text="General" />
+    <string id="InvEnh_Sort_CombatHeader" text="Combat" />
+    <string id="InvEnh_Sort_DefenseHeader" text="Defense" />
+
+    <!-- Sort Category Tooltips -->
+    <string id="InvEnh_Hint_Sort_Name" text="Sort alphabetically by item name." />
+    <string id="InvEnh_Hint_Sort_Tier" text="Sort by item tier, from common to legendary." />
+    <string id="InvEnh_Hint_Sort_Damage" text="Sort by the weapon's highest damage value, thrust or swing." />
+    <string id="InvEnh_Hint_Sort_Accuracy" text="Sort by ranged weapon accuracy." />
+    <string id="InvEnh_Hint_Sort_Reach" text="Sort by weapon length." />
+    <string id="InvEnh_Hint_Sort_MissileSpeed" text="Sort by projectile speed for bows, crossbows, and thrown weapons." />
+    <string id="InvEnh_Hint_Sort_HitPoints" text="Sort by durability: shield hit points or mount health." />
+    <string id="InvEnh_Hint_Sort_ArmorCombined" text="Sort by total armor across every body area the item covers." />
+    <string id="InvEnh_Hint_Sort_ArmorHighest" text="Sort by the item's single highest armor value." />
+    <string id="InvEnh_Hint_Sort_Speed" text="Sort by weapon swing speed or mount speed." />
+    <string id="InvEnh_Hint_Sort_Handling" text="Sort by weapon handling." />
+    <string id="InvEnh_Hint_Sort_Weight" text="Sort by item weight." />
+    <string id="InvEnh_Hint_Sort_VPW" text="Sort by value per unit of weight, useful for judging what's worth carrying." />
+
+    <!-- Filter Categories - Weapons -->
+    <string id="InvEnh_Filter_Daggers" text="Daggers" />
+    <string id="InvEnh_Filter_1HSwords" text="1H Swords" />
+    <string id="InvEnh_Filter_1HAxes" text="1H Axes" />
+    <string id="InvEnh_Filter_1HMaces" text="1H Maces" />
+    <string id="InvEnh_Filter_1HPolearms" text="1H Polearms" />
+    <string id="InvEnh_Filter_2HSwords" text="2H Swords" />
+    <string id="InvEnh_Filter_2HAxes" text="2H Axes" />
+    <string id="InvEnh_Filter_2HMaces" text="2H Maces" />
+    <string id="InvEnh_Filter_2HPolearms" text="2H Polearms" />
+    <string id="InvEnh_Filter_Bows" text="Bows" />
+    <string id="InvEnh_Filter_Crossbows" text="Crossbows" />
+    <string id="InvEnh_Filter_Throwing" text="Throwing Weapons" />
+    <string id="InvEnh_Filter_Ammo" text="Ammunition" />
+
+    <!-- Filter Categories - Armor -->
+    <string id="InvEnh_Filter_Shields" text="Shields" />
+    <string id="InvEnh_Filter_Head" text="Head Armor" />
+    <string id="InvEnh_Filter_Shoulders" text="Shoulder Armor" />
+    <string id="InvEnh_Filter_Body" text="Body Armor" />
+    <string id="InvEnh_Filter_Arms" text="Arm Armor" />
+    <string id="InvEnh_Filter_Legs" text="Leg Armor" />
+
+    <!-- Filter Categories - Mounts -->
+    <string id="InvEnh_Filter_Mounts" text="Mounts" />
+    <string id="InvEnh_Filter_HorseArmor" text="Horse Armor" />
+
+    <!-- Filter Categories - Misc -->
+    <string id="InvEnh_Filter_Banners" text="Banners" />
+    <string id="InvEnh_Filter_Food" text="Food" />
+    <string id="InvEnh_Filter_Goods" text="Trade Goods" />
+
+    <!-- Filter Categories - Culture (the item's country of origin) -->
+    <string id="InvEnh_Filter_Vlandian" text="Vlandian" />
+    <string id="InvEnh_Filter_Sturgian" text="Sturgian" />
+    <string id="InvEnh_Filter_Imperial" text="Imperial" />
+    <string id="InvEnh_Filter_Battanian" text="Battanian" />
+    <string id="InvEnh_Filter_Khuzait" text="Khuzait" />
+    <string id="InvEnh_Filter_Aserai" text="Aserai" />
+
+    <!-- Filter Categories - Attributes -->
+    <string id="InvEnh_Filter_TierHigh" text="High Tier (5+)" />
+    <string id="InvEnh_Filter_TierLow" text="Low Tier (2 or Under)" />
+    <string id="InvEnh_Filter_ValueHigh" text="High Value (1000+)" />
+    <string id="InvEnh_Filter_ValueLow" text="Low Value (Under 100)" />
+
+    <!-- Filter Section Headers -->
+    <string id="InvEnh_Filter_CategoryHeader" text="Match Any" />
+    <string id="InvEnh_Filter_ModifierHeader" text="Then Narrow By" />
+    <string id="InvEnh_Filter_WeaponsOneHandedHeader" text="Melee (One-Handed)" />
+    <string id="InvEnh_Filter_WeaponsTwoHandedHeader" text="Melee (Two-Handed)" />
+    <string id="InvEnh_Filter_RangedHeader" text="Shields &amp; Ranged" />
+    <string id="InvEnh_Filter_ArmorHeader" text="Armor" />
+    <string id="InvEnh_Filter_MountsHeader" text="Mounts" />
+    <string id="InvEnh_Filter_MiscHeader" text="Misc" />
+    <string id="InvEnh_Filter_CultureHeader" text="Culture" />
+
+    <!-- Filter Category Tooltips - Weapons -->
+    <string id="InvEnh_Hint_Filter_Daggers" text="Show daggers." />
+    <string id="InvEnh_Hint_Filter_1HSwords" text="Show one-handed swords." />
+    <string id="InvEnh_Hint_Filter_1HAxes" text="Show one-handed axes." />
+    <string id="InvEnh_Hint_Filter_1HMaces" text="Show one-handed maces." />
+    <string id="InvEnh_Hint_Filter_1HPolearms" text="Show one-handed polearms." />
+    <string id="InvEnh_Hint_Filter_2HSwords" text="Show two-handed swords." />
+    <string id="InvEnh_Hint_Filter_2HAxes" text="Show two-handed axes." />
+    <string id="InvEnh_Hint_Filter_2HMaces" text="Show two-handed maces." />
+    <string id="InvEnh_Hint_Filter_2HPolearms" text="Show two-handed polearms." />
+    <string id="InvEnh_Hint_Filter_Bows" text="Show bows." />
+    <string id="InvEnh_Hint_Filter_Crossbows" text="Show crossbows." />
+    <string id="InvEnh_Hint_Filter_Throwing" text="Show throwing weapons." />
+    <string id="InvEnh_Hint_Filter_Ammo" text="Show arrows and bolts." />
+
+    <!-- Filter Category Tooltips - Armor -->
+    <string id="InvEnh_Hint_Filter_Shields" text="Show shields." />
+    <string id="InvEnh_Hint_Filter_Head" text="Show helmets." />
+    <string id="InvEnh_Hint_Filter_Shoulders" text="Show capes and cloaks." />
+    <string id="InvEnh_Hint_Filter_Body" text="Show body armor." />
+    <string id="InvEnh_Hint_Filter_Arms" text="Show hand and arm armor." />
+    <string id="InvEnh_Hint_Filter_Legs" text="Show leg armor and boots." />
+
+    <!-- Filter Category Tooltips - Mounts -->
+    <string id="InvEnh_Hint_Filter_Mounts" text="Show horses and other mounts." />
+    <string id="InvEnh_Hint_Filter_HorseArmor" text="Show mount armor." />
+
+    <!-- Filter Category Tooltips - Misc -->
+    <string id="InvEnh_Hint_Filter_Banners" text="Show banners." />
+    <string id="InvEnh_Hint_Filter_Food" text="Show food items." />
+    <string id="InvEnh_Hint_Filter_Goods" text="Show trade goods." />
+
+    <!-- Filter Category Tooltips - Culture -->
+    <string id="InvEnh_Hint_Filter_Vlandian" text="Show items made by Vlandia." />
+    <string id="InvEnh_Hint_Filter_Sturgian" text="Show items made by Sturgia." />
+    <string id="InvEnh_Hint_Filter_Imperial" text="Show items made by the Empire." />
+    <string id="InvEnh_Hint_Filter_Battanian" text="Show items made by Battania." />
+    <string id="InvEnh_Hint_Filter_Khuzait" text="Show items made by the Khuzait Khanate." />
+    <string id="InvEnh_Hint_Filter_Aserai" text="Show items made by the Aserai." />
+
+    <!-- Filter Category Tooltips - Attributes (narrow the categories above) -->
+    <string id="InvEnh_Hint_Filter_TierHigh" text="Narrow the results above to tier 5 and up." />
+    <string id="InvEnh_Hint_Filter_TierLow" text="Narrow the results above to tier 2 and below." />
+    <string id="InvEnh_Hint_Filter_ValueHigh" text="Narrow the results above to items worth 1000 gold or more." />
+    <string id="InvEnh_Hint_Filter_ValueLow" text="Narrow the results above to items worth less than 100 gold." />
+
+    <!-- UI Button Text -->
+    <string id="InvEnh_UI_Show" text="Show" />
+    <string id="InvEnh_UI_Hide" text="Hide" />
+    <string id="InvEnh_UI_Filter" text="Filter" />
+    <string id="InvEnh_UI_Sort" text="Sort" />
+    <string id="InvEnh_UI_Reset" text="Reset" />
+    <string id="InvEnh_UI_Apply" text="Apply" />
+    <string id="InvEnh_UI_SortOptions" text="Sort Options" />
+    <string id="InvEnh_UI_FilterOptions" text="Filter Options" />
+    <string id="InvEnh_UI_Left" text="Left" />
+    <string id="InvEnh_UI_Right" text="Right" />
+    <string id="InvEnh_UI_Both" text="Both" />
+
+    <!-- UI Tooltips -->
+    <string id="InvEnh_Hint_Hide" text="Hide or show the Inventory Enhancer overlay." />
+    <string id="InvEnh_Hint_SortButton" text="Open sort options for this inventory." />
+    <string id="InvEnh_Hint_FilterButton" text="Open filter options for this inventory." />
+    <string id="InvEnh_Hint_Reset" text="Clear all sort and filter selections." />
+    <string id="InvEnh_Hint_Apply" text="Apply the selected sort and filter to the inventory." />
+    <string id="InvEnh_Hint_Ascending" text="Sort from lowest to highest." />
+    <string id="InvEnh_Hint_Descending" text="Sort from highest to lowest." />
+    <string id="InvEnh_Hint_SortLeft" text="Sort only the left inventory." />
+    <string id="InvEnh_Hint_SortBoth" text="Sort both inventories." />
+    <string id="InvEnh_Hint_SortRight" text="Sort only the right inventory." />
+    <string id="InvEnh_Hint_FilterLeft" text="Filter only the left inventory." />
+    <string id="InvEnh_Hint_FilterBoth" text="Filter both inventories." />
+    <string id="InvEnh_Hint_FilterRight" text="Filter only the right inventory." />
+
+    <!-- Messages -->
+    <string id="InvEnh_Msg_Loaded" text="Inventory Enhancer: Loaded." />
+    <string id="InvEnh_Msg_FailedInit" text="Inventory Enhancer: Failed to initialize. Check the log for details." />
+    <string id="InvEnh_Msg_Error" text="Inventory Enhancer: Error - {ERROR_MESSAGE}" />
+    <string id="InvEnh_Msg_ApplyFailed" text="Inventory Enhancer: Could not apply changes. Try closing and reopening the inventory." />
+    <string id="InvEnh_Msg_ApplyFallback" text="Inventory Enhancer: Using a fallback method after a game update. If sorting or filtering looks wrong, please report it." />
+
+    <string id="InvEnh_Sett_NativeBar" text="Show Status In The Vanilla Screen" />
+    <string id="InvEnh_Sett_NativeBar_Hint" text="Preview: writes the active filter and sort straight into the vanilla inventory panels instead of only the overlay. Off by default because the overlay still shows the same thing, so both would appear at once. Default: off" />
+    <string id="InvEnh_Bar_Nothing" text="No filter, no sort" />
+    <string id="InvEnh_Bar_Status" text="{COUNT} filters, sorted by {SORT}" />
+    <string id="InvEnh_Bar_NoSort" text="nothing" />
+  </strings>
+  <functions>
+    <function functionName="InvEnh_Placeholder" functionBody=""/>
+  </functions>
+</base>

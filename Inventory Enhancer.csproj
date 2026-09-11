@@ -1,0 +1,180 @@
+﻿<Project Sdk="Bannerlord.BUTRModule.Sdk/1.1.0.129">
+
+  <PropertyGroup>
+    <Version>3.1.0</Version>
+    <TargetFrameworks>net472;net6</TargetFrameworks>
+    <Platforms>x64</Platforms>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <LangVersion>10.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <NoWarn>CS0168</NoWarn>
+
+    <BuildForWindows>false</BuildForWindows>
+    <BuildForWindowsStore>false</BuildForWindowsStore>
+
+    <ModuleId>InventoryEnhancer</ModuleId>
+    <ModuleName>Inventory Enhancer</ModuleName>
+    <ModuleUrl>https://www.nexusmods.com/mountandblade2bannerlord/mods/9757</ModuleUrl>
+    <GameFolder>$(BANNERLORD_GAME_DIR)</GameFolder>
+    <RootNamespace>InventoryEnhancer</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(TargetFramework) == 'net472'">
+    <BuildForWindows>true</BuildForWindows>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework) == 'net6'">
+    <BuildForWindowsStore>true</BuildForWindowsStore>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <HarmonyVersion>2.4.2</HarmonyVersion>
+    <UIExtenderExVersion>2.13.3</UIExtenderExVersion>
+    <ButterLibVersion>2.11.1</ButterLibVersion>
+    <MCMVersion>5.12.2</MCMVersion>
+    <BUTRModuleLoaderVersion>1.0.1.50</BUTRModuleLoaderVersion>
+    <HarmonyExtensionsVersion>3.2.0.77</HarmonyExtensionsVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" PrivateAssets="all" IncludeAssets="compile" />
+    <PackageReference Include="BUTR.Harmony.Analyzer" Version="1.0.1.50" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove=".REFERENCE\**\*.cs" />
+  </ItemGroup>
+
+  <!--
+    Before build: if a previous build renamed the folder to "Inventory Enhancer",
+    move it back so the SDK's ReplaceFileText can find "InventoryEnhancer\SubModule.xml".
+  -->
+  <Target Name="RestoreModuleFolder"
+          BeforeTargets="Build"
+          Condition="'$(TargetFramework)' != '' And !Exists('$(GameFolder)\Modules\$(ModuleId)') And Exists('$(GameFolder)\Modules\$(ModuleName)')">
+    <Exec Command="move &quot;$(GameFolder)\Modules\$(ModuleName)&quot; &quot;$(GameFolder)\Modules\$(ModuleId)&quot;" />
+  </Target>
+
+  <!--
+    The SDK reads the last line of supported-game-versions.txt as the Minimal version, and falls back
+    to the second-to-last entry when that line is empty. A trailing newline therefore moves the floor
+    up one entry in silence, and the floor is not cosmetic: it becomes the DependedModuleMetadata
+    version, the one dependency field the module manager enforces, so every player on a game older
+    than it is told the mod has a dependency conflict and cannot play.
+
+    That shipped. v3.25.0 went out with a trailing newline, declaring game v1.4.7 instead of v1.3.15,
+    and players below v1.4.7 lost the mod overnight. It was fixed by hand the same day; this makes it
+    impossible to ship again.
+  -->
+  <Target Name="VerifyGameVersionFloor" BeforeTargets="CoreCompile"
+          Condition="Exists('$(MSBuildProjectDirectory)\supported-game-versions.txt')">
+    <PropertyGroup>
+      <_SupportedVersionsText>$([System.IO.File]::ReadAllText('$(MSBuildProjectDirectory)\supported-game-versions.txt'))</_SupportedVersionsText>
+    </PropertyGroup>
+    <Error Condition="$(_SupportedVersionsText.EndsWith('%0A')) Or $(_SupportedVersionsText.EndsWith('%0D'))"
+           Text="supported-game-versions.txt ends with a newline. The SDK reads the last line as the Minimal version and falls back to the second-to-last entry when it is empty, so this silently raises the declared game floor by one entry and locks out every player on an older game. Remove the trailing newline." />
+    <!-- The SDK skips parsing the file when OverrideGameVersion is set, as the compatibility
+         scanner does, so an empty GameMinimalVersion is only wrong when nothing overrode it. -->
+    <Error Condition="'$(GameMinimalVersion)' == '' And '$(OverrideGameVersion)' == ''"
+           Text="GameMinimalVersion resolved to nothing from supported-game-versions.txt; the manifest would declare no game version at all." />
+  </Target>
+
+  <!--
+    The SDK deploys into a folder named for the module id, and only the outer build renames it to the
+    module name. A single-framework build (-p:TargetFramework=net472, say) therefore deployed and was
+    never renamed, leaving a second folder declaring the same module id next to the real one, holding
+    one framework's output. The game then warns about a duplicate module id and ignores one of them.
+
+    Both halves are closed here. The outer build clears the staging folder before any inner build
+    writes to it, so a leftover can never merge into the next deploy, and drops a marker inside it.
+    An inner build that finds no marker knows it was started on its own rather than by an outer
+    build, removes what it just staged and says why, so the installed module is left alone.
+  -->
+  <PropertyGroup>
+    <_DeployStagingMarker>.outer-build</_DeployStagingMarker>
+  </PropertyGroup>
+
+  <Target Name="PrepareModuleStaging"
+          BeforeTargets="DispatchToInnerBuilds"
+          Condition="'$(GameFolder)' != '' And '$(ModuleId)' != '$(ModuleName)' And Exists('$(GameFolder)')">
+    <RemoveDir Directories="$(GameFolder)\Modules\$(ModuleId)" ContinueOnError="true" />
+    <MakeDir Directories="$(GameFolder)\Modules\$(ModuleId)" />
+    <WriteLinesToFile File="$(GameFolder)\Modules\$(ModuleId)\$(_DeployStagingMarker)"
+                      Lines="Written by the outer build; removed before the module is installed."
+                      Overwrite="true" />
+  </Target>
+
+  <Target Name="NoStrayStagingFolder"
+          AfterTargets="CopyModule"
+          Condition="'$(TargetFramework)' != '' And '$(GameFolder)' != '' And '$(ModuleId)' != '$(ModuleName)' And !Exists('$(GameFolder)\Modules\$(ModuleId)\$(_DeployStagingMarker)')">
+    <RemoveDir Directories="$(GameFolder)\Modules\$(ModuleId)" ContinueOnError="true" />
+    <Warning Text="A single-framework build cannot be deployed: it holds only $(TargetFramework), and the module folder is renamed only by the outer build, so it would leave a second folder declaring module id '$(ModuleId)'. What it staged has been removed and the installed module is untouched. Build without -p:TargetFramework, or pass -p:DisableModuleCopy=true." />
+  </Target>
+
+  <!--
+    The deployed folder is named for the module, not its id, so the SDK's output folder is renamed
+    after the build. It is a replacement, never a merge: an xcopy or Copy over the existing folder
+    leaves behind every file the new build no longer produces, and the versioned assembly name
+    carries the game version, so bumping supported-game-versions.txt left the previous version's DLL
+    sitting in the deployed module beside the new one for the game to load.
+
+    Runs on the outer build, once, after every inner build has deployed into the id folder; renaming
+    from an inner build would delete the other framework's output that the earlier pass just placed.
+    Skipped when the id and the name are the same, where there is nothing to rename and parking the
+    folder would move the new build away from under itself.
+
+    The replacement parks the deployed module before installing the new one, and puts it back if the
+    install fails, so a failed deploy leaves the previous module rather than none. Deleting first was
+    destructive: a running game holds the assemblies, the delete stripped every file it could reach,
+    the move then failed, and the game was left with a module folder holding no manifest and no
+    prefabs (twice on 2026-09-06, once ending in a crash reading a prefab that had been deleted from
+    under the running game). Renaming a locked folder fails while that folder is still whole.
+  -->
+  <Target Name="RenameModuleFolder"
+          AfterTargets="Build"
+          Condition="('$(TargetFramework)' == '' Or '$(TargetFrameworks)' == '') And '$(GameFolder)' != '' And '$(ModuleId)' != '$(ModuleName)' And Exists('$(GameFolder)\Modules\$(ModuleId)')">
+
+    <PropertyGroup>
+      <_DeployStaging>$(GameFolder)\Modules\$(ModuleId)</_DeployStaging>
+      <_DeployLive>$(GameFolder)\Modules\$(ModuleName)</_DeployLive>
+      <_DeployParked>$(GameFolder)\Modules\$(ModuleName).previous</_DeployParked>
+    </PropertyGroup>
+
+    <Delete Files="$(_DeployStaging)\$(_DeployStagingMarker)" ContinueOnError="true" />
+
+    <!-- A run that died between the two moves left the module parked and nothing live; put it back
+         before anything else, and never delete the parked copy while it is the only one. -->
+    <Exec Condition="Exists('$(_DeployParked)') And !Exists('$(_DeployLive)')"
+          Command="move &quot;$(_DeployParked)&quot; &quot;$(_DeployLive)&quot;"
+          ContinueOnError="true" />
+    <Error Condition="Exists('$(_DeployParked)') And !Exists('$(_DeployLive)')"
+           Text="'$(_DeployParked)' holds the only copy of the deployed module and could not be restored to '$(_DeployLive)'. Close Bannerlord and rename it back by hand before building again." />
+    <RemoveDir Condition="Exists('$(_DeployParked)')" Directories="$(_DeployParked)" ContinueOnError="true" />
+
+    <!-- Park the live module. A lock fails here, while it is still intact. -->
+    <Exec Condition="Exists('$(_DeployLive)')"
+          Command="move &quot;$(_DeployLive)&quot; &quot;$(_DeployParked)&quot;"
+          ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="_DeployParkExit" />
+    </Exec>
+    <Error Condition="'$(_DeployParkExit)' != '' And '$(_DeployParkExit)' != '0'"
+           Text="Could not replace the deployed module: '$(_DeployLive)' is in use. Close Bannerlord and build again. The deployed module is untouched; this build is at '$(_DeployStaging)'." />
+
+    <!-- Install the new build in its place. -->
+    <Exec Command="move &quot;$(_DeployStaging)&quot; &quot;$(_DeployLive)&quot;" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="_DeployInstallExit" />
+    </Exec>
+
+    <!-- Failed install: the previous module goes back, so the game is never left without one. -->
+    <Exec Condition="'$(_DeployInstallExit)' != '0' And Exists('$(_DeployParked)') And !Exists('$(_DeployLive)')"
+          Command="move &quot;$(_DeployParked)&quot; &quot;$(_DeployLive)&quot;"
+          ContinueOnError="true" />
+    <Error Condition="'$(_DeployInstallExit)' != '0'"
+           Text="Could not move this build into '$(_DeployLive)'. The previously deployed module was put back; this build is at '$(_DeployStaging)'." />
+
+    <!-- Only once the new module is really in place. -->
+    <RemoveDir Condition="Exists('$(_DeployParked)') And Exists('$(_DeployLive)')"
+               Directories="$(_DeployParked)" ContinueOnError="true" />
+  </Target>
+
+</Project>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Brushes>
+  <!--
+    Root cause of "no selection indicator" bug: every prior version of the checkbox visual
+    referenced SPOptions.Checkbox.Empty/Full.Button, a brush pair defined in the Options
+    screen's own Modules/Native/GUI/Brushes/SPOptions.xml. Every vanilla screen with a
+    checkbox-style control defines its own scoped brush (SPOptions.Checkbox.*, Crafting.Checkbox.*,
+    MPLobby...Checkbox, Inventory.Lock) and none of them borrow another screen's; this mod's
+    overlay runs inside the Inventory screen's own Gauntlet context, which only resolves Main.xml
+    (global) and the Inventory module's own brush file, not Options' - so the borrowed brush never
+    rendered, in any state. This brush follows Inventory.Lock's own proven single-brush,
+    Selected-style-swap pattern (Modules/SandBox/GUI/Brushes/Inventory.xml, used by
+    InventoryItemTuple.xml's real lock toggle in this exact screen) instead, using the same
+    StdAssets checkbox sprites SPOptions used, but owned by this mod so it always resolves.
+  -->
+  <Brush Name="InventoryEnhancer.Checkbox">
+    <Layers>
+      <BrushLayer Name="Default" Sprite="StdAssets\checkbox_empty" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Default" />
+      </Style>
+      <Style Name="Hovered">
+        <BrushLayer Name="Default" ColorFactor="1.2" />
+      </Style>
+      <Style Name="Pressed">
+        <BrushLayer Name="Default" ColorFactor="0.8" />
+      </Style>
+      <Style Name="Selected">
+        <BrushLayer Name="Default" Sprite="StdAssets\checkbox_full" />
+      </Style>
+      <Style Name="Disabled">
+        <BrushLayer Name="Default" ColorFactor="0.5" AlphaFactor="0.75" />
+      </Style>
+    </Styles>
+  </Brush>
+</Brushes>

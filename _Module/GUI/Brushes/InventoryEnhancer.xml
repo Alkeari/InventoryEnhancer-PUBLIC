@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The single palette declaration site for this mod (Alkeari Design System section 10).
+  Every color the Sort & Filter menu draws is defined here; no prefab carries a literal hex.
+  Names and values come from section 2.1: Obsidian Black #000000, Forged Gold #FFDA00,
+  Warm Gold Shadow #C9A800, Soft Champagne #FFF1B3, Steel Gray #A6A6A6,
+  Deep Graphite #1A1A1A, hairline #333333, raised #2E2E2E, raised hover #3D3D3D,
+  disabled text #6E6E6E, de-emphasized #8A8A8A. Fonts stay the game's own (section 3), and only
+  fonts and sprites the vanilla inventory screen itself uses are referenced, so each resolves there.
+-->
+<Brushes>
+
+  <!-- Surfaces -->
+
+  <!-- Obsidian Black at 72 percent, the design system's scrim behind a modal. -->
+  <Brush Name="InventoryEnhancer.Scrim">
+    <Layers>
+      <BrushLayer Name="Fill" Sprite="BlankWhiteSquare_9" Color="#000000B8" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Fill" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Panel">
+    <Layers>
+      <BrushLayer Name="Fill" Sprite="BlankWhiteSquare_9" Color="#1A1A1AFF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Fill" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Well">
+    <Layers>
+      <BrushLayer Name="Fill" Sprite="BlankWhiteSquare_9" Color="#2E2E2EFF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Fill" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Hairline">
+    <Layers>
+      <BrushLayer Name="Fill" Sprite="BlankWhiteSquare_9" Color="#333333FF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Fill" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Accent">
+    <Layers>
+      <BrushLayer Name="Fill" Sprite="BlankWhiteSquare_9" Color="#FFDA00FF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Fill" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <!-- The checkbox frame is the de-emphasized neutral rather than the hairline: a #333333 edge on the
+       graphite panel is below the 3:1 contrast floor for a control outline. -->
+  <Brush Name="InventoryEnhancer.CheckFrame">
+    <Layers>
+      <BrushLayer Name="Fill" Sprite="BlankWhiteSquare_9" Color="#8A8A8AFF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Fill" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <!-- Controls -->
+
+  <Brush Name="InventoryEnhancer.Button.Primary" TransitionDuration="0.16">
+    <Layers>
+      <BrushLayer Name="Rest" Sprite="BlankWhiteSquare_9" Color="#FFDA00FF" />
+      <BrushLayer Name="Hover" Sprite="BlankWhiteSquare_9" Color="#C9A800FF" IsHidden="true" />
+      <BrushLayer Name="Off" Sprite="BlankWhiteSquare_9" Color="#2E2E2EFF" IsHidden="true" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Rest" IsHidden="false" />
+        <BrushLayer Name="Hover" IsHidden="true" />
+        <BrushLayer Name="Off" IsHidden="true" />
+      </Style>
+      <Style Name="Hovered">
+        <BrushLayer Name="Rest" IsHidden="true" />
+        <BrushLayer Name="Hover" IsHidden="false" />
+        <BrushLayer Name="Off" IsHidden="true" />
+      </Style>
+      <Style Name="Pressed">
+        <BrushLayer Name="Rest" IsHidden="true" />
+        <BrushLayer Name="Hover" IsHidden="false" ColorFactor="0.8" />
+        <BrushLayer Name="Off" IsHidden="true" />
+      </Style>
+      <Style Name="Selected">
+        <BrushLayer Name="Rest" IsHidden="true" />
+        <BrushLayer Name="Hover" IsHidden="false" />
+        <BrushLayer Name="Off" IsHidden="true" />
+      </Style>
+      <Style Name="Disabled">
+        <BrushLayer Name="Rest" IsHidden="true" />
+        <BrushLayer Name="Hover" IsHidden="true" />
+        <BrushLayer Name="Off" IsHidden="false" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Button.Secondary" TransitionDuration="0.16">
+    <Layers>
+      <BrushLayer Name="Rest" Sprite="BlankWhiteSquare_9" Color="#2E2E2EFF" />
+      <BrushLayer Name="Hover" Sprite="BlankWhiteSquare_9" Color="#3D3D3DFF" IsHidden="true" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Rest" IsHidden="false" />
+        <BrushLayer Name="Hover" IsHidden="true" />
+      </Style>
+      <Style Name="Hovered">
+        <BrushLayer Name="Rest" IsHidden="true" />
+        <BrushLayer Name="Hover" IsHidden="false" />
+      </Style>
+      <Style Name="Pressed">
+        <BrushLayer Name="Rest" IsHidden="false" ColorFactor="0.8" />
+        <BrushLayer Name="Hover" IsHidden="true" />
+      </Style>
+      <Style Name="Selected">
+        <BrushLayer Name="Rest" IsHidden="true" />
+        <BrushLayer Name="Hover" IsHidden="false" />
+      </Style>
+      <Style Name="Disabled">
+        <BrushLayer Name="Rest" IsHidden="false" AlphaFactor="0.6" />
+        <BrushLayer Name="Hover" IsHidden="true" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <!-- A toggle segment: OFF is the raised fill with a Steel Gray caption, ON is Forged Gold with a black
+       caption, so both states read without color alone. -->
+  <Brush Name="InventoryEnhancer.Segment" TransitionDuration="0.16">
+    <Layers>
+      <BrushLayer Name="Rest" Sprite="BlankWhiteSquare_9" Color="#2E2E2EFF" />
+      <BrushLayer Name="Hover" Sprite="BlankWhiteSquare_9" Color="#3D3D3DFF" IsHidden="true" />
+      <BrushLayer Name="On" Sprite="BlankWhiteSquare_9" Color="#FFDA00FF" IsHidden="true" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Rest" IsHidden="false" />
+        <BrushLayer Name="Hover" IsHidden="true" />
+        <BrushLayer Name="On" IsHidden="true" />
+      </Style>
+      <Style Name="Hovered">
+        <BrushLayer Name="Rest" IsHidden="true" />
+        <BrushLayer Name="Hover" IsHidden="false" />
+        <BrushLayer Name="On" IsHidden="true" />
+      </Style>
+      <Style Name="Pressed">
+        <BrushLayer Name="Rest" IsHidden="true" />
+        <BrushLayer Name="Hover" IsHidden="false" ColorFactor="0.8" />
+        <BrushLayer Name="On" IsHidden="true" />
+      </Style>
+      <Style Name="Selected">
+        <BrushLayer Name="Rest" IsHidden="true" />
+        <BrushLayer Name="Hover" IsHidden="true" />
+        <BrushLayer Name="On" IsHidden="false" />
+      </Style>
+      <Style Name="Disabled">
+        <BrushLayer Name="Rest" IsHidden="false" AlphaFactor="0.6" />
+        <BrushLayer Name="Hover" IsHidden="true" />
+        <BrushLayer Name="On" IsHidden="true" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <!-- An option row: the raised fill marks a selected row alongside its gold bar and check. -->
+  <Brush Name="InventoryEnhancer.Row" TransitionDuration="0.16">
+    <Layers>
+      <BrushLayer Name="Rest" Sprite="BlankWhiteSquare_9" Color="#1A1A1AFF" />
+      <BrushLayer Name="Chosen" Sprite="BlankWhiteSquare_9" Color="#2E2E2EFF" IsHidden="true" />
+      <BrushLayer Name="Hover" Sprite="BlankWhiteSquare_9" Color="#3D3D3DFF" IsHidden="true" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Rest" IsHidden="false" />
+        <BrushLayer Name="Chosen" IsHidden="true" />
+        <BrushLayer Name="Hover" IsHidden="true" />
+      </Style>
+      <Style Name="Hovered">
+        <BrushLayer Name="Rest" IsHidden="true" />
+        <BrushLayer Name="Chosen" IsHidden="true" />
+        <BrushLayer Name="Hover" IsHidden="false" />
+      </Style>
+      <Style Name="Pressed">
+        <BrushLayer Name="Rest" IsHidden="true" />
+        <BrushLayer Name="Chosen" IsHidden="true" />
+        <BrushLayer Name="Hover" IsHidden="false" ColorFactor="0.8" />
+      </Style>
+      <Style Name="Selected">
+        <BrushLayer Name="Rest" IsHidden="true" />
+        <BrushLayer Name="Chosen" IsHidden="false" />
+        <BrushLayer Name="Hover" IsHidden="true" />
+      </Style>
+      <Style Name="Disabled">
+        <BrushLayer Name="Rest" IsHidden="false" AlphaFactor="0.6" />
+        <BrushLayer Name="Chosen" IsHidden="true" />
+        <BrushLayer Name="Hover" IsHidden="true" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Scrollbar.Track">
+    <Layers>
+      <BrushLayer Name="Fill" Sprite="BlankWhiteSquare_9" Color="#2E2E2EFF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Fill" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Scrollbar.Handle" TransitionDuration="0.16">
+    <Layers>
+      <BrushLayer Name="Rest" Sprite="BlankWhiteSquare_9" Color="#8A8A8AFF" />
+      <BrushLayer Name="Hover" Sprite="BlankWhiteSquare_9" Color="#A6A6A6FF" IsHidden="true" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Rest" IsHidden="false" />
+        <BrushLayer Name="Hover" IsHidden="true" />
+      </Style>
+      <Style Name="Hovered">
+        <BrushLayer Name="Rest" IsHidden="true" />
+        <BrushLayer Name="Hover" IsHidden="false" />
+      </Style>
+      <Style Name="Pressed">
+        <BrushLayer Name="Rest" IsHidden="true" />
+        <BrushLayer Name="Hover" IsHidden="false" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <!-- Group icons: the vanilla inventory's own filter-tab sprites, tinted Steel Gray to sit beside the
+       group label rather than keeping the vanilla color. -->
+
+  <Brush Name="InventoryEnhancer.Icon.Weapons">
+    <Layers>
+      <BrushLayer Name="Default" Sprite="Inventory\filterWeapons" Color="#A6A6A6FF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Default" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Icon.Shields">
+    <Layers>
+      <BrushLayer Name="Default" Sprite="Inventory\filterShields" Color="#A6A6A6FF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Default" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Icon.Armors">
+    <Layers>
+      <BrushLayer Name="Default" Sprite="Inventory\filterArmors" Color="#A6A6A6FF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Default" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Icon.Mounts">
+    <Layers>
+      <BrushLayer Name="Default" Sprite="Inventory\filterMounts" Color="#A6A6A6FF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Default" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Icon.Food">
+    <Layers>
+      <BrushLayer Name="Default" Sprite="Inventory\filterFood" Color="#A6A6A6FF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Default" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <!-- Type -->
+
+  <Brush Name="InventoryEnhancer.Text.Title" Font="Galahad" TextHorizontalAlignment="Left" TextVerticalAlignment="Center">
+    <Layers>
+    </Layers>
+    <Styles>
+      <Style Name="Default" FontColor="#FFDA00FF" FontSize="26" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Text.Heading" Font="Galahad" TextHorizontalAlignment="Left" TextVerticalAlignment="Center">
+    <Layers>
+    </Layers>
+    <Styles>
+      <Style Name="Default" FontColor="#FFDA00FF" FontSize="21" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Text.Caption" Font="Galahad" TextHorizontalAlignment="Left" TextVerticalAlignment="Center">
+    <Layers>
+    </Layers>
+    <Styles>
+      <Style Name="Default" FontColor="#A6A6A6FF" FontSize="15" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Text.Group" Font="Galahad" TextHorizontalAlignment="Left" TextVerticalAlignment="Center">
+    <Layers>
+    </Layers>
+    <Styles>
+      <Style Name="Default" FontColor="#A6A6A6FF" FontSize="17" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Text.Row" Font="FiraSansExtraCondensed-Regular" TextHorizontalAlignment="Left" TextVerticalAlignment="Center">
+    <Layers>
+    </Layers>
+    <Styles>
+      <Style Name="Default" FontColor="#FFF1B3FF" FontSize="19" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+      <Style Name="Disabled" FontColor="#6E6E6EFF" FontSize="19" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Text.Button" Font="Galahad" TextHorizontalAlignment="Center" TextVerticalAlignment="Center">
+    <Layers>
+    </Layers>
+    <Styles>
+      <Style Name="Default" FontColor="#FFF1B3FF" FontSize="19" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+      <Style Name="Disabled" FontColor="#6E6E6EFF" FontSize="19" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Text.ButtonPrimary" Font="Galahad" TextHorizontalAlignment="Center" TextVerticalAlignment="Center">
+    <Layers>
+    </Layers>
+    <Styles>
+      <Style Name="Default" FontColor="#000000FF" FontSize="19" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+      <Style Name="Disabled" FontColor="#6E6E6EFF" FontSize="19" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Text.Segment" Font="Galahad" TextHorizontalAlignment="Center" TextVerticalAlignment="Center">
+    <Layers>
+    </Layers>
+    <Styles>
+      <Style Name="Default" FontColor="#A6A6A6FF" FontSize="18" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+      <Style Name="Hovered" FontColor="#FFF1B3FF" FontSize="18" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+      <Style Name="Pressed" FontColor="#FFF1B3FF" FontSize="18" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+      <Style Name="Selected" FontColor="#000000FF" FontSize="18" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+      <Style Name="Disabled" FontColor="#6E6E6EFF" FontSize="18" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+    </Styles>
+  </Brush>
+
+  <!-- A quiet button: no visible fill, a Steel Gray caption that brightens on hover. -->
+  <Brush Name="InventoryEnhancer.Button.Quiet" TransitionDuration="0.16">
+    <Layers>
+      <BrushLayer Name="Fill" Sprite="BlankWhiteSquare_9" Color="#1A1A1AFF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Fill" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.Text.Quiet" Font="Galahad" TextHorizontalAlignment="Right" TextVerticalAlignment="Center">
+    <Layers>
+    </Layers>
+    <Styles>
+      <Style Name="Default" FontColor="#A6A6A6FF" FontSize="18" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+      <Style Name="Hovered" FontColor="#FFF1B3FF" FontSize="18" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+      <Style Name="Pressed" FontColor="#FFF1B3FF" FontSize="18" TextOutlineAmount="0" TextGlowRadius="0" TextBlur="0" />
+    </Styles>
+  </Brush>
+
+  <!-- Each side's Sort & Filter button in the name bar. The button carries its edge, a child sits 2 inside
+       it as the fill, and three bars of falling width draw the sort glyph; the button passes its state to
+       all of them. The edge is gold while the menu is open, the de-emphasized neutral at rest so it
+       clears 3:1 against the vanilla bar, and the glyph goes gray while the other side holds Both Sides. -->
+
+  <Brush Name="InventoryEnhancer.SideButton.Edge" TransitionDuration="0.16">
+    <Layers>
+      <BrushLayer Name="Fill" Sprite="BlankWhiteSquare_9" Color="#8A8A8AFF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Fill" Color="#8A8A8AFF" />
+      </Style>
+      <Style Name="Hovered">
+        <BrushLayer Name="Fill" Color="#FFF1B3FF" />
+      </Style>
+      <Style Name="Pressed">
+        <BrushLayer Name="Fill" Color="#C9A800FF" />
+      </Style>
+      <Style Name="Selected">
+        <BrushLayer Name="Fill" Color="#FFDA00FF" />
+      </Style>
+      <Style Name="Disabled">
+        <BrushLayer Name="Fill" Color="#333333FF" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.SideButton.Fill" TransitionDuration="0.16">
+    <Layers>
+      <BrushLayer Name="Fill" Sprite="BlankWhiteSquare_9" Color="#1A1A1AFF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Fill" Color="#1A1A1AFF" />
+      </Style>
+      <Style Name="Hovered">
+        <BrushLayer Name="Fill" Color="#3D3D3DFF" />
+      </Style>
+      <Style Name="Pressed">
+        <BrushLayer Name="Fill" Color="#2E2E2EFF" />
+      </Style>
+      <Style Name="Selected">
+        <BrushLayer Name="Fill" Color="#1A1A1AFF" />
+      </Style>
+      <Style Name="Disabled">
+        <BrushLayer Name="Fill" Color="#1A1A1AFF" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <Brush Name="InventoryEnhancer.SideButton.Glyph" TransitionDuration="0.16">
+    <Layers>
+      <BrushLayer Name="Fill" Sprite="BlankWhiteSquare_9" Color="#FFF1B3FF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Fill" Color="#FFF1B3FF" />
+      </Style>
+      <Style Name="Hovered">
+        <BrushLayer Name="Fill" Color="#FFF1B3FF" />
+      </Style>
+      <Style Name="Pressed">
+        <BrushLayer Name="Fill" Color="#C9A800FF" />
+      </Style>
+      <Style Name="Selected">
+        <BrushLayer Name="Fill" Color="#FFDA00FF" />
+      </Style>
+      <Style Name="Disabled">
+        <BrushLayer Name="Fill" Color="#6E6E6EFF" />
+      </Style>
+    </Styles>
+  </Brush>
+
+  <!-- The active badge's ring: Obsidian Black separates the gold dot from a gold edge. -->
+  <Brush Name="InventoryEnhancer.Black">
+    <Layers>
+      <BrushLayer Name="Fill" Sprite="BlankWhiteSquare_9" Color="#000000FF" />
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Fill" />
+      </Style>
+    </Styles>
+  </Brush>
+
+</Brushes>

@@ -1,0 +1,20 @@
+<Prefab>
+  <!-- A non-interactive group label inside a Sort & Filter menu's list. A group with a vanilla filter tab
+       carries that tab's icon; one without sets HasIcon to false and indents its label to the row text. -->
+  <Parameters>
+    <Parameter Name="HeaderText" DefaultValue="" />
+    <Parameter Name="IconBrush" DefaultValue="InventoryEnhancer.Icon.Weapons" />
+    <Parameter Name="HasIcon" DefaultValue="true" />
+    <Parameter Name="TextMarginLeft" DefaultValue="0" />
+    <Parameter Name="TopMargin" DefaultValue="10" />
+  </Parameters>
+  <Constants />
+  <Window>
+    <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="28" MarginTop="*TopMargin" MarginBottom="2" StackLayout.LayoutMethod="HorizontalLeftToRight" DoNotAcceptEvents="true">
+      <Children>
+        <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="20" SuggestedHeight="20" MarginLeft="10" MarginRight="8" VerticalAlignment="Center" Brush="*IconBrush" IsVisible="*HasIcon" DoNotAcceptEvents="true" />
+        <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="*TextMarginLeft" Brush="InventoryEnhancer.Text.Group" Text="*HeaderText" DoNotAcceptEvents="true" />
+      </Children>
+    </ListPanel>
+  </Window>
+</Prefab>

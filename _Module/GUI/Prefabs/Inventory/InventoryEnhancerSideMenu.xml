@@ -1,0 +1,247 @@
+<Prefab>
+  <!-- One side's Sort & Filter menu, shown in the middle of the screen over a scrim while it is open; the
+       scrim closes it when clicked. It is inserted after the screen's main layout rather than into the
+       name bar, so it draws over both item panels.
+       The menu is drawn in the Alkeari palette from InventoryEnhancer.xml. Its fill and edge are
+       BrushWidgets, because a Brush on a ListPanel draws nothing, and the panel has a fixed size, so
+       nothing inside it is sized by a parent that stretches. Both columns shown: 648 wide inside the
+       edge, 660 tall; with one column shown it stays that size and the column centers. -->
+  <Constants />
+  <Window>
+    <Widget DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+      <Children>
+        <ButtonWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="InventoryEnhancer.Scrim" Command.Click="ExecuteClose" IsVisible="@IsMenuOpen" />
+        <!-- 2-unit edge, not 1: a single unit is sub-pixel at the game's UI scale. -->
+        <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="652" SuggestedHeight="664" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="InventoryEnhancer.Hairline" IsVisible="@IsMenuOpen" DoNotAcceptEvents="false">
+          <Children>
+            <BrushWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="2" MarginRight="2" MarginTop="2" MarginBottom="2" Brush="InventoryEnhancer.Panel" DoNotAcceptEvents="false">
+              <Children>
+              <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false">
+              <Children>
+
+              <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="54" DoNotAcceptEvents="false">
+                <Children>
+                  <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" MarginLeft="18" StackLayout.LayoutMethod="HorizontalLeftToRight" DoNotAcceptEvents="true">
+                    <Children>
+                      <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" Brush="InventoryEnhancer.Text.Title" Text="@TitleText" DoNotAcceptEvents="true" />
+                      <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent" MarginLeft="14" Brush="InventoryEnhancer.Text.Group" Text="@SideText" DoNotAcceptEvents="true" />
+                    </Children>
+                  </ListPanel>
+                  <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="90" SuggestedHeight="36" HorizontalAlignment="Right" VerticalAlignment="Center" MarginRight="16" Brush="InventoryEnhancer.Button.Quiet" Command.Click="ExecuteClose" DoNotPassEventsToChildren="true" UpdateChildrenStates="true">
+                    <Children>
+                      <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="InventoryEnhancer.Text.Quiet" Text="@CloseButtonText" DoNotAcceptEvents="true" />
+                      <HintWidget DataSource="{CloseHint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                    </Children>
+                  </ButtonWidget>
+                </Children>
+              </Widget>
+              <BrushWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="2" MarginLeft="16" MarginRight="16" Brush="InventoryEnhancer.Hairline" DoNotAcceptEvents="true" />
+
+              <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginTop="14" StackLayout.LayoutMethod="HorizontalLeftToRight" DoNotAcceptEvents="false">
+                <Children>
+
+                  <!-- Sort column. Its list is 394 tall so its bottom edge meets the Filter column's. -->
+                  <ListPanel DataSource="{SortMenu}" WidthSizePolicy="Fixed" SuggestedWidth="300" HeightSizePolicy="CoverChildren" MarginLeft="8" MarginRight="8" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false" IsVisible="@IsVisible">
+                    <Children>
+                      <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="30" Brush="InventoryEnhancer.Text.Heading" Text="@SortOptionsText" DoNotAcceptEvents="true" />
+                      <!-- States plainly that this list is single-select, since it shares the check
+                           Filter's multi-select lists use. -->
+                      <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="22" Brush="InventoryEnhancer.Text.Caption" Text="@ChooseOneHeaderText" DoNotAcceptEvents="true" />
+                      <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="394" MarginTop="6" DoNotAcceptEvents="false">
+                        <Children>
+                          <ScrollablePanel Id="SortScrollPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" AutoHideScrollBars="true" MouseScrollAxis="Vertical" ClipRect="SortOptionsClipRect" InnerPanel="SortOptionsClipRect\SortOptionsList" VerticalScrollbar="..\SortScrollbar">
+                            <Children>
+                              <Widget Id="SortOptionsClipRect" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginRight="14" ClipContents="true">
+                                <Children>
+                                  <ListPanel Id="SortOptionsList" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false">
+                                    <Children>
+                                      <InventoryEnhancerGroupHeader Parameter.HeaderText="@GeneralHeaderText" Parameter.HasIcon="false" Parameter.TextMarginLeft="16" Parameter.TopMargin="0" />
+                                      <ListPanel DataSource="{GeneralOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false">
+                                        <ItemTemplate>
+                                          <InventoryEnhancerOptionRow Parameter.ClickCommand="ExecuteSelect" />
+                                        </ItemTemplate>
+                                      </ListPanel>
+                                      <InventoryEnhancerGroupHeader Parameter.HeaderText="@CombatHeaderText" Parameter.HasIcon="false" Parameter.TextMarginLeft="16" />
+                                      <ListPanel DataSource="{CombatOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false">
+                                        <ItemTemplate>
+                                          <InventoryEnhancerOptionRow Parameter.ClickCommand="ExecuteSelect" />
+                                        </ItemTemplate>
+                                      </ListPanel>
+                                      <InventoryEnhancerGroupHeader Parameter.HeaderText="@DefenseHeaderText" Parameter.HasIcon="false" Parameter.TextMarginLeft="16" />
+                                      <ListPanel DataSource="{DefenseOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false">
+                                        <ItemTemplate>
+                                          <InventoryEnhancerOptionRow Parameter.ClickCommand="ExecuteSelect" />
+                                        </ItemTemplate>
+                                      </ListPanel>
+                                    </Children>
+                                  </ListPanel>
+                                </Children>
+                              </Widget>
+                            </Children>
+                          </ScrollablePanel>
+                          <ScrollbarWidget Id="SortScrollbar" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="8" HorizontalAlignment="Right" AlignmentAxis="Vertical" Handle="SortScrollbarHandle" MaxValue="100" MinValue="0">
+                            <Children>
+                              <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="4" HorizontalAlignment="Center" Brush="InventoryEnhancer.Scrollbar.Track" DoNotAcceptEvents="true" />
+                              <ImageWidget Id="SortScrollbarHandle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="10" SuggestedWidth="8" HorizontalAlignment="Center" Brush="InventoryEnhancer.Scrollbar.Handle" />
+                            </Children>
+                          </ScrollbarWidget>
+                        </Children>
+                      </Widget>
+                      <!-- Ascending and Descending: a two-segment toggle, the chosen direction in gold. -->
+                      <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="40" MarginTop="8" StackLayout.LayoutMethod="HorizontalLeftToRight" DoNotAcceptEvents="false">
+                        <Children>
+                          <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="146" SuggestedHeight="40" Brush="InventoryEnhancer.Segment" Command.Click="ExecuteSetAscending" DoNotPassEventsToChildren="true" IsSelected="@IsAscending" UpdateChildrenStates="true">
+                            <Children>
+                              <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="InventoryEnhancer.Text.Segment" Text="@AscendingText" DoNotAcceptEvents="true" />
+                              <HintWidget DataSource="{AscendingHint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                            </Children>
+                          </ButtonWidget>
+                          <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="146" SuggestedHeight="40" MarginLeft="8" Brush="InventoryEnhancer.Segment" Command.Click="ExecuteSetDescending" DoNotPassEventsToChildren="true" IsSelected="@IsDescending" UpdateChildrenStates="true">
+                            <Children>
+                              <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="InventoryEnhancer.Text.Segment" Text="@DescendingText" DoNotAcceptEvents="true" />
+                              <HintWidget DataSource="{DescendingHint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                            </Children>
+                          </ButtonWidget>
+                        </Children>
+                      </ListPanel>
+                    </Children>
+                  </ListPanel>
+
+                  <!-- Filter column. Category filters use OR logic and scroll as one unit, grouped like the
+                       vanilla inventory's own filter tabs; the four modifiers use AND logic and sit below,
+                       never scrolled, so the boundary between them shows how they combine. -->
+                  <ListPanel DataSource="{FilterMenu}" WidthSizePolicy="Fixed" SuggestedWidth="300" HeightSizePolicy="CoverChildren" MarginLeft="8" MarginRight="8" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false" IsVisible="@IsVisible">
+                    <Children>
+                      <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="30" Brush="InventoryEnhancer.Text.Heading" Text="@FilterOptionsText" DoNotAcceptEvents="true" />
+                      <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="22" Brush="InventoryEnhancer.Text.Caption" Text="@CategoryHeaderText" DoNotAcceptEvents="true" />
+                      <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="280" MarginTop="6" DoNotAcceptEvents="false">
+                        <Children>
+                          <ScrollablePanel Id="FilterScrollPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" AutoHideScrollBars="true" MouseScrollAxis="Vertical" ClipRect="FilterCategoriesClipRect" InnerPanel="FilterCategoriesClipRect\FilterCategoriesList" VerticalScrollbar="..\FilterScrollbar">
+                            <Children>
+                              <Widget Id="FilterCategoriesClipRect" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginRight="14" ClipContents="true">
+                                <Children>
+                                  <ListPanel Id="FilterCategoriesList" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false">
+                                    <Children>
+                                      <InventoryEnhancerGroupHeader Parameter.HeaderText="@WeaponsOneHandedHeaderText" Parameter.IconBrush="InventoryEnhancer.Icon.Weapons" Parameter.TopMargin="0" />
+                                      <ListPanel DataSource="{WeaponsOneHandedOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false">
+                                        <ItemTemplate>
+                                          <InventoryEnhancerOptionRow Parameter.ClickCommand="ExecuteToggle" />
+                                        </ItemTemplate>
+                                      </ListPanel>
+                                      <InventoryEnhancerGroupHeader Parameter.HeaderText="@WeaponsTwoHandedHeaderText" Parameter.IconBrush="InventoryEnhancer.Icon.Weapons" />
+                                      <ListPanel DataSource="{WeaponsTwoHandedOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false">
+                                        <ItemTemplate>
+                                          <InventoryEnhancerOptionRow Parameter.ClickCommand="ExecuteToggle" />
+                                        </ItemTemplate>
+                                      </ListPanel>
+                                      <InventoryEnhancerGroupHeader Parameter.HeaderText="@PolearmsHeaderText" Parameter.IconBrush="InventoryEnhancer.Icon.Weapons" />
+                                      <ListPanel DataSource="{PolearmsOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false">
+                                        <ItemTemplate>
+                                          <InventoryEnhancerOptionRow Parameter.ClickCommand="ExecuteToggle" />
+                                        </ItemTemplate>
+                                      </ListPanel>
+                                      <InventoryEnhancerGroupHeader Parameter.HeaderText="@ThrownHeaderText" Parameter.IconBrush="InventoryEnhancer.Icon.Shields" />
+                                      <ListPanel DataSource="{ThrownOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false">
+                                        <ItemTemplate>
+                                          <InventoryEnhancerOptionRow Parameter.ClickCommand="ExecuteToggle" />
+                                        </ItemTemplate>
+                                      </ListPanel>
+                                      <InventoryEnhancerGroupHeader Parameter.HeaderText="@RangedHeaderText" Parameter.IconBrush="InventoryEnhancer.Icon.Shields" />
+                                      <ListPanel DataSource="{RangedOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false">
+                                        <ItemTemplate>
+                                          <InventoryEnhancerOptionRow Parameter.ClickCommand="ExecuteToggle" />
+                                        </ItemTemplate>
+                                      </ListPanel>
+                                      <InventoryEnhancerGroupHeader Parameter.HeaderText="@ArmorHeaderText" Parameter.IconBrush="InventoryEnhancer.Icon.Armors" />
+                                      <ListPanel DataSource="{ArmorOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false">
+                                        <ItemTemplate>
+                                          <InventoryEnhancerOptionRow Parameter.ClickCommand="ExecuteToggle" />
+                                        </ItemTemplate>
+                                      </ListPanel>
+                                      <InventoryEnhancerGroupHeader Parameter.HeaderText="@MountsHeaderText" Parameter.IconBrush="InventoryEnhancer.Icon.Mounts" />
+                                      <ListPanel DataSource="{MountsOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false">
+                                        <ItemTemplate>
+                                          <InventoryEnhancerOptionRow Parameter.ClickCommand="ExecuteToggle" />
+                                        </ItemTemplate>
+                                      </ListPanel>
+                                      <InventoryEnhancerGroupHeader Parameter.HeaderText="@MiscHeaderText" Parameter.IconBrush="InventoryEnhancer.Icon.Food" />
+                                      <ListPanel DataSource="{MiscOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false">
+                                        <ItemTemplate>
+                                          <InventoryEnhancerOptionRow Parameter.ClickCommand="ExecuteToggle" />
+                                        </ItemTemplate>
+                                      </ListPanel>
+                                      <!-- Culture has no vanilla filter tab, so its header has no icon. -->
+                                      <InventoryEnhancerGroupHeader Parameter.HeaderText="@CultureHeaderText" Parameter.HasIcon="false" Parameter.TextMarginLeft="16" />
+                                      <ListPanel DataSource="{CultureOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="VerticalTopToBottom" DoNotAcceptEvents="false">
+                                        <ItemTemplate>
+                                          <InventoryEnhancerOptionRow Parameter.ClickCommand="ExecuteToggle" />
+                                        </ItemTemplate>
+                                      </ListPanel>
+                                    </Children>
+                                  </ListPanel>
+                                </Children>
+                              </Widget>
+                            </Children>
+                          </ScrollablePanel>
+                          <ScrollbarWidget Id="FilterScrollbar" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="8" HorizontalAlignment="Right" AlignmentAxis="Vertical" Handle="FilterScrollbarHandle" MaxValue="100" MinValue="0">
+                            <Children>
+                              <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="4" HorizontalAlignment="Center" Brush="InventoryEnhancer.Scrollbar.Track" DoNotAcceptEvents="true" />
+                              <ImageWidget Id="FilterScrollbarHandle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="10" SuggestedWidth="8" HorizontalAlignment="Center" Brush="InventoryEnhancer.Scrollbar.Handle" />
+                            </Children>
+                          </ScrollbarWidget>
+                        </Children>
+                      </Widget>
+                      <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="22" MarginTop="12" Brush="InventoryEnhancer.Text.Caption" Text="@ModifierHeaderText" DoNotAcceptEvents="true" />
+                      <ListPanel DataSource="{ModifierOptions}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginRight="14" StackLayout.LayoutMethod="VerticalBottomToTop" DoNotAcceptEvents="false">
+                        <ItemTemplate>
+                          <InventoryEnhancerOptionRow Parameter.ClickCommand="ExecuteToggle" />
+                        </ItemTemplate>
+                      </ListPanel>
+                    </Children>
+                  </ListPanel>
+
+                </Children>
+              </ListPanel>
+
+              <!-- Footer: Both Sides on the left, the actions on the right with the primary last. -->
+              <BrushWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="2" MarginLeft="16" MarginRight="16" MarginTop="16" Brush="InventoryEnhancer.Hairline" DoNotAcceptEvents="true" />
+              <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="72" DoNotAcceptEvents="false">
+                <Children>
+                  <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="190" SuggestedHeight="40" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="16" Brush="InventoryEnhancer.Row" Command.Click="ExecuteToggleBothSides" DoNotPassEventsToChildren="true" IsSelected="@IsBothSides">
+                    <Children>
+                      <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="20" SuggestedHeight="20" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="10" DoNotAcceptEvents="true">
+                        <Children>
+                          <BrushWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="InventoryEnhancer.CheckFrame" DoNotAcceptEvents="true" />
+                          <BrushWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="2" MarginRight="2" MarginTop="2" MarginBottom="2" Brush="InventoryEnhancer.Panel" DoNotAcceptEvents="true" />
+                          <BrushWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="5" MarginRight="5" MarginTop="5" MarginBottom="5" Brush="InventoryEnhancer.Accent" IsVisible="@IsBothSides" DoNotAcceptEvents="true" />
+                        </Children>
+                      </Widget>
+                      <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="40" MarginRight="8" Brush="InventoryEnhancer.Text.Row" Text="@BothSidesText" DoNotAcceptEvents="true" />
+                      <HintWidget DataSource="{BothSidesHint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                    </Children>
+                  </ButtonWidget>
+                  <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="130" SuggestedHeight="40" HorizontalAlignment="Right" VerticalAlignment="Center" MarginRight="156" Brush="InventoryEnhancer.Button.Secondary" Command.Click="ExecuteReset" DoNotPassEventsToChildren="true" UpdateChildrenStates="true">
+                    <Children>
+                      <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="InventoryEnhancer.Text.Button" Text="@ResetButtonText" DoNotAcceptEvents="true" />
+                      <HintWidget DataSource="{ResetHint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                    </Children>
+                  </ButtonWidget>
+                  <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="130" SuggestedHeight="40" HorizontalAlignment="Right" VerticalAlignment="Center" MarginRight="16" Brush="InventoryEnhancer.Button.Primary" Command.Click="ExecuteApply" DoNotPassEventsToChildren="true" UpdateChildrenStates="true">
+                    <Children>
+                      <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="InventoryEnhancer.Text.ButtonPrimary" Text="@ApplyButtonText" DoNotAcceptEvents="true" />
+                      <HintWidget DataSource="{ApplyHint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                    </Children>
+                  </ButtonWidget>
+                </Children>
+              </Widget>
+
+              </Children>
+              </ListPanel>
+              </Children>
+            </BrushWidget>
+          </Children>
+        </BrushWidget>
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>

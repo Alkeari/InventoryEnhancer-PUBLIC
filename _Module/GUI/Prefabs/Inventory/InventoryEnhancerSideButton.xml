@@ -1,0 +1,36 @@
+<Prefab>
+  <!-- One side's Sort & Filter button, inserted into the vanilla character name bar beside that side's
+       arrow. The same margin on both sides keeps the pair symmetrical. Three bars of falling width draw
+       the sort glyph from plain palette fills, so the button needs no art of its own; a gold dot in its
+       corner shows that side has a sort or filter applied. -->
+  <Parameters>
+    <Parameter Name="ButtonAlignment" DefaultValue="Left" />
+    <Parameter Name="ButtonMarginLeft" DefaultValue="0" />
+    <Parameter Name="ButtonMarginRight" DefaultValue="0" />
+  </Parameters>
+  <Constants />
+  <Window>
+    <Widget DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+      <Children>
+        <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="40" HorizontalAlignment="*ButtonAlignment" VerticalAlignment="Top" MarginLeft="*ButtonMarginLeft" MarginRight="*ButtonMarginRight" MarginTop="13" Brush="InventoryEnhancer.SideButton.Edge" Command.Click="ExecuteToggleMenu" DoNotPassEventsToChildren="true" UpdateChildrenStates="true" IsSelected="@IsMenuOpen" IsDisabled="@IsLocked" IsVisible="@IsButtonVisible">
+          <Children>
+            <BrushWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="2" MarginRight="2" MarginTop="2" MarginBottom="2" Brush="InventoryEnhancer.SideButton.Fill" DoNotAcceptEvents="true" />
+            <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="20" SuggestedHeight="3" HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="11" Brush="InventoryEnhancer.SideButton.Glyph" DoNotAcceptEvents="true" />
+            <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="14" SuggestedHeight="3" HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="18" Brush="InventoryEnhancer.SideButton.Glyph" DoNotAcceptEvents="true" />
+            <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="8" SuggestedHeight="3" HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="25" Brush="InventoryEnhancer.SideButton.Glyph" DoNotAcceptEvents="true" />
+            <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="12" SuggestedHeight="12" HorizontalAlignment="Right" VerticalAlignment="Top" MarginRight="3" MarginTop="3" IsVisible="@IsActive" DoNotAcceptEvents="true">
+              <Children>
+                <BrushWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="InventoryEnhancer.Black" DoNotAcceptEvents="true" />
+                <BrushWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="2" MarginRight="2" MarginTop="2" MarginBottom="2" Brush="InventoryEnhancer.Accent" DoNotAcceptEvents="true" />
+              </Children>
+            </Widget>
+            <HintWidget DataSource="{ButtonHint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+          </Children>
+        </ButtonWidget>
+        <!-- A disabled button takes no hover, so while the other side holds Both Sides this separate
+             widget over the button explains why it cannot be used. -->
+        <HintWidget DataSource="{LockedHint}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="40" HorizontalAlignment="*ButtonAlignment" VerticalAlignment="Top" MarginLeft="*ButtonMarginLeft" MarginRight="*ButtonMarginRight" MarginTop="13" IsVisible="@IsLocked" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>

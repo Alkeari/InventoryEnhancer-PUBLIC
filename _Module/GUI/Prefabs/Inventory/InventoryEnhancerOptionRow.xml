@@ -1,0 +1,24 @@
+<Prefab>
+  <!-- One selectable option in a Sort & Filter menu. A selected row shows three signals at once: the raised
+       fill, a gold bar on its left edge and a gold check, so selection never rests on color alone. -->
+  <Parameters>
+    <Parameter Name="ClickCommand" DefaultValue="ExecuteToggle" />
+  </Parameters>
+  <Constants />
+  <Window>
+    <ButtonWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="32" Brush="InventoryEnhancer.Row" Command.Click="*ClickCommand" DoNotPassEventsToChildren="true" IsSelected="@IsSelected">
+      <Children>
+        <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="4" HorizontalAlignment="Left" Brush="InventoryEnhancer.Accent" IsVisible="@IsSelected" DoNotAcceptEvents="true" />
+        <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="16" MarginRight="42" Brush="InventoryEnhancer.Text.Row" Text="@Name" DoNotAcceptEvents="true" />
+        <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="20" SuggestedHeight="20" HorizontalAlignment="Right" VerticalAlignment="Center" MarginRight="12" DoNotAcceptEvents="true">
+          <Children>
+            <BrushWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="InventoryEnhancer.CheckFrame" DoNotAcceptEvents="true" />
+            <BrushWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="2" MarginRight="2" MarginTop="2" MarginBottom="2" Brush="InventoryEnhancer.Panel" DoNotAcceptEvents="true" />
+            <BrushWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="5" MarginRight="5" MarginTop="5" MarginBottom="5" Brush="InventoryEnhancer.Accent" IsVisible="@IsSelected" DoNotAcceptEvents="true" />
+          </Children>
+        </Widget>
+        <HintWidget DataSource="{Hint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+      </Children>
+    </ButtonWidget>
+  </Window>
+</Prefab>
